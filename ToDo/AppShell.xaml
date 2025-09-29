@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="ToDo.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ToDo.Pages"
+       Title="ToDo"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarHasShadow="True"
+       Shell.TabBarBackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1E1E1E}"
+       Shell.TabBarForegroundColor="{AppThemeBinding Light=#666666, Dark=#DDDDDD}"
+       Shell.TabBarTitleColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}"
+       Shell.TabBarUnselectedColor="{AppThemeBinding Light=#999999, Dark=#888888}">
+
+    <TabBar>
+        <Tab Title="Home" Icon="home.png" Route="ListPage">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:ListPage}"
+                Route="ListPage" />
+        </Tab>
+
+        <Tab Title="New" Icon="add.png" Route="EditPage">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:EditPage}"
+                Route="EditPage" />
+        </Tab>
+    </TabBar>
+</Shell>

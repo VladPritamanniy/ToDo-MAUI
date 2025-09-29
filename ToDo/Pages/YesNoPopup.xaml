@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:vm="clr-namespace:ToDo.ViewModels"
+            xmlns:system="clr-namespace:System;assembly=mscorlib"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            x:TypeArguments="system:Boolean"
+            x:DataType="vm:YesNoPopupViewModel"
+            x:Class="ToDo.Pages.YesNoPopup"
+            Padding="10">
+
+    <AbsoluteLayout>
+        <VerticalStackLayout Spacing="6" Opacity="{Binding Opacity}">
+            <Label Text="Are you sure that you want to delete?" />
+            <Button
+                Text="Yes"
+                IsEnabled="{Binding IsEnabledBtn}"
+                Command="{Binding YesCommand}" />
+            <Button
+                Text="No"
+                IsEnabled="{Binding IsEnabledBtn}"
+                Command="{Binding NoCommand}" />
+        </VerticalStackLayout>
+
+        <ActivityIndicator
+            IsRunning="{Binding IsLoading}"
+            AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Color="Blue" />
+    </AbsoluteLayout>
+</toolkit:Popup>

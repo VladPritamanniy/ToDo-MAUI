@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ToDo.Converters"
+             xmlns:vm="clr-namespace:ToDo.ViewModels"
+             x:Class="ToDo.Pages.ListPage"
+             x:DataType="vm:ListViewModel"
+             Title="ListPage">
+    
+    <ContentPage.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter" /> 
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <VerticalStackLayout Margin="40,0">
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ItemViewModel">
+                        <Border
+                            Stroke="DarkGray"
+                            StrokeThickness="2"
+                            Background="{Binding IsPlaceholder, Converter={StaticResource BoolToColorConverter}}"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="10"
+                            Margin="0,10,0,0">
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <DragGestureRecognizer 
+                                        DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewModel}}, Path=DragStartingCommand}"
+                                        DragStartingCommandParameter="{Binding .}"
+                                        DropCompletedCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewModel}}, Path=DropCompletedCommand}"/>
+                                    <DropGestureRecognizer
+                                        DropCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewModel}}, Path=DropCommand}"
+                                        DropCommandParameter="{Binding .}" />
+                                    <DropGestureRecognizer
+                                        DragOverCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewModel}}, Path=DragOver}"
+                                        DragOverCommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="{Binding Id}"/>
+                                </StackLayout.GestureRecognizers>
+                                
+                                <Label
+                                    Text="{Binding Title}"
+                                    VerticalOptions="Center"
+                                    FontSize="12"
+                                    FontAttributes="Bold"
+                                    TextDecorations="{Binding TextDecoration}" />
+                                <BoxView Color="Gray"
+                                    HeightRequest="2"
+                                    HorizontalOptions="Fill" />
+                                <Label
+                                    Text="{Binding Description}"
+                                    VerticalOptions="Center"
+                                    FontSize="16"
+                                    TextDecorations="{Binding TextDecoration}" />
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
